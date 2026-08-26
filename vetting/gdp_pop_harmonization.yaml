@@ -1,0 +1,31 @@
+# GDP/population harmonization checkset for vetting-adapter's declarative
+# reference-comparison checks (see vetting_adapter.core.spec
+# .build_check_from_spec for the schema).
+#
+# The reference data file (vetting/data/gdp_pop_harmonization_reference.xlsx)
+# is the IAM COMPACT project's D4.3 GDP/population harmonization dataset.
+# This checkset moved here from transience-nomenclature-definitions, where it
+# had originally been added only to exercise the project-specific-checkset
+# mechanism end to end -- it was never TRANSIENCE-specific reference data.
+
+name: gdp_pop_harmonization
+type: reference_comparison
+
+reference:
+  file: vetting/data/gdp_pop_harmonization_reference.xlsx
+
+comparison:
+  method: ratio
+  target: 1.0
+  tolerance: 0.02   # +/- 2%, i.e. accept a ratio of vetted/reference in [0.98, 1.02]
+
+aggregation:
+  region: max
+  time: max
+  broadcast_dims: [model, scenario]
+
+rating_function: log_rms
+
+output:
+  summary_key: Summary
+  full_comparison_key: Full comparison
